@@ -1,0 +1,107 @@
+---
+// Features section
+interface Feature {
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  badge: string;
+  badgeColor: string;
+}
+
+const features: Feature[] = [
+  {
+    title: 'Signalements géolocalisés',
+    description: 'Les citoyens créent des signalements avec photo et géolocalisation précise. Les catégories disponibles couvrent les déchets sauvages, la voirie dégradée, l\'éclairage défectueux et bien d\'autres incivilités du quotidien.',
+    image: '/images/feature-report.svg',
+    imageAlt: 'Interface mobile avec carte et signalement géolocalisé',
+    badge: 'Signalements',
+    badgeColor: 'blue',
+  },
+  {
+    title: 'Votes communautaires',
+    description: 'Les habitants votent +1 ou -1 sur chaque signalement. Le score Wilson est utilisé pour prioriser automatiquement les problèmes les plus pertinents. La communauté décide aussi de la résolution par un vote pondéré par niveau de confiance.',
+    image: '/images/feature-vote.svg',
+    imageAlt: 'Interface de vote communautaire avec scores',
+    badge: 'Communauté',
+    badgeColor: 'green',
+  },
+  {
+    title: 'Validation terrain par agents',
+    description: 'Les agents municipaux constatent les problèmes sur le terrain, valident les signalements et les clôturent avec une preuve photographique. Le processus garantit une résolution transparente et vérifiable.',
+    image: '/images/feature-validate.svg',
+    imageAlt: 'Agent municipal validant un signalement avec clipboard',
+    badge: 'Municipal',
+    badgeColor: 'orange',
+  },
+  {
+    title: 'Anonymat & protection des données',
+    description: 'Les emails sont chiffrés en AES. Les pseudonymes sont générés automatiquement. Aucune donnée personnelle n\'est exposée. Le système inclut un anti-abus avec rate limiting, cooldown et sanctions progressives automatiques.',
+    image: '/images/feature-privacy.svg',
+    imageAlt: 'Bouclier de protection des données et anonymat',
+    badge: 'Vie privée',
+    badgeColor: 'purple',
+  },
+];
+
+const badgeStyles: Record<string, string> = {
+  blue: 'bg-blue-100 text-blue-700',
+  green: 'bg-green-100 text-green-700',
+  orange: 'bg-orange-100 text-orange-700',
+  purple: 'bg-purple-100 text-purple-700',
+};
+---
+
+<section id="features" class="py-24 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section header -->
+    <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+      <span class="inline-block bg-brand-100 text-brand-700 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
+        Fonctionnalités
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">
+        Tout ce dont votre commune a besoin
+      </h2>
+      <p class="text-lg text-slate-500 leading-relaxed">
+        Une plateforme participative complète, pensée pour l'efficacité, la transparence et la sérénité des échanges entre citoyens et élus.
+      </p>
+    </div>
+
+    <!-- Features list (alternating layout) -->
+    <div class="space-y-24">
+      {features.map((feature, index) => (
+        <div class={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${index % 2 === 1 ? 'lg:[direction:rtl]' : ''}`}>
+
+          <!-- Image -->
+          <div class={`flex justify-center ${index % 2 === 1 ? 'lg:[direction:ltr]' : ''}`}>
+            <div class="relative w-full max-w-md">
+              <div class="absolute inset-0 bg-gradient-to-br from-brand-100 to-brand-50 rounded-3xl" aria-hidden="true"></div>
+              <img
+                src={feature.image}
+                alt={feature.imageAlt}
+                class="relative w-full h-auto p-6"
+                width="400"
+                height="320"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class={`space-y-5 ${index % 2 === 1 ? 'lg:[direction:ltr]' : ''}`}>
+            <span class={`inline-block text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full ${badgeStyles[feature.badgeColor]}`}>
+              {feature.badge}
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              {feature.title}
+            </h3>
+            <p class="text-lg text-slate-500 leading-relaxed">
+              {feature.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
