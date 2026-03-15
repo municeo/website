@@ -1,0 +1,95 @@
+---
+// Hero section
+---
+
+<section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-brand-700">
+  <!-- Decorative blobs -->
+  <div class="absolute top-0 right-0 w-96 h-96 bg-brand-500 rounded-full opacity-10 translate-x-1/2 -translate-y-1/4 blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute bottom-0 left-0 w-80 h-80 bg-blue-300 rounded-full opacity-10 -translate-x-1/3 translate-y-1/4 blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+      <!-- Text content -->
+      <div class="text-center lg:text-left space-y-6">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-brand-800/60 border border-brand-600/40 text-brand-200 text-xs font-semibold px-3 py-1.5 rounded-full">
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          Open Source · AGPL-3.0
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
+          Redonnez la voix<br/>
+          <span class="text-brand-300">à vos habitants</span>
+        </h1>
+
+        <p class="text-lg sm:text-xl text-brand-100 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+          Municeo est une plateforme participative open source permettant aux citoyens de signaler des incivilités et problèmes du quotidien directement à leur municipalité — de façon simple, anonyme et sans toxicité.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+          <a
+            href="https://github.com/municeo/municeo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-brand-50 hover:shadow-xl transition-all duration-200"
+          >
+            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+            Voir sur GitHub
+          </a>
+          <a
+            href="#features"
+            class="inline-flex items-center justify-center gap-2 bg-brand-600/40 border border-brand-400/50 text-white font-semibold px-6 py-3 rounded-xl hover:bg-brand-600/60 transition-all duration-200"
+          >
+            Découvrir les fonctionnalités
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex flex-wrap gap-6 justify-center lg:justify-start pt-4">
+          <div class="text-center">
+            <div class="text-2xl font-extrabold text-white">PHP 8.5+</div>
+            <div class="text-xs text-brand-300 font-medium">Symfony 8</div>
+          </div>
+          <div class="w-px bg-brand-700 self-stretch hidden sm:block"></div>
+          <div class="text-center">
+            <div class="text-2xl font-extrabold text-white">PostGIS</div>
+            <div class="text-xs text-brand-300 font-medium">Géolocalisation</div>
+          </div>
+          <div class="w-px bg-brand-700 self-stretch hidden sm:block"></div>
+          <div class="text-center">
+            <div class="text-2xl font-extrabold text-white">Temps réel</div>
+            <div class="text-xs text-brand-300 font-medium">Mercure SSE</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Illustration -->
+      <div class="flex justify-center lg:justify-end">
+        <div class="relative w-full max-w-lg">
+          <!-- Glow effect behind image -->
+          <div class="absolute inset-0 bg-brand-400/20 rounded-3xl blur-2xl scale-105" aria-hidden="true"></div>
+          <img
+            src="/images/hero-city.svg"
+            alt="Des habitants signalant des problèmes dans leur ville"
+            class="relative w-full h-auto drop-shadow-2xl"
+            width="600"
+            height="450"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wave divider -->
+  <div class="absolute bottom-0 left-0 right-0" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" class="w-full h-auto fill-white">
+      <path d="M0 60V30C240 0 480 60 720 30S1200 0 1440 30V60H0Z"/>
+    </svg>
+  </div>
+</section>

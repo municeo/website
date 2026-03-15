@@ -1,0 +1,37 @@
+---
+// Tech stack section
+const stack = [
+  { name: 'PHP 8.5+', description: 'Langage robuste, typé et performant', color: 'bg-violet-100 text-violet-700' },
+  { name: 'Symfony 8', description: 'Framework PHP de référence', color: 'bg-slate-100 text-slate-700' },
+  { name: 'FrankenPHP', description: 'Serveur PHP moderne en mode worker', color: 'bg-orange-100 text-orange-700' },
+  { name: 'PostgreSQL 18+', description: 'Base de données relationnelle avancée', color: 'bg-blue-100 text-blue-700' },
+  { name: 'PostGIS 3.6+', description: 'Extension spatiale pour la géolocalisation', color: 'bg-green-100 text-green-700' },
+  { name: 'Mercure (SSE)', description: 'Notifications temps réel', color: 'bg-yellow-100 text-yellow-700' },
+  { name: 'Twig + Symfony UX', description: 'Frontend avec Stimulus & Turbo', color: 'bg-pink-100 text-pink-700' },
+  { name: 'PHPUnit', description: 'Tests unitaires et fonctionnels', color: 'bg-red-100 text-red-700' },
+];
+---
+
+<section class="py-20 bg-white border-t border-slate-100">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-xl mx-auto mb-12 space-y-3">
+      <span class="inline-block bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
+        Stack technique
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+        Des technologies modernes et éprouvées
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      {stack.map((tech) => (
+        <div class="flex flex-col gap-2 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-brand-200 hover:bg-brand-50 transition-colors duration-200">
+          <span class={`self-start text-xs font-bold px-2 py-1 rounded-lg ${tech.color}`}>
+            {tech.name}
+          </span>
+          <p class="text-sm text-slate-500 leading-snug">{tech.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

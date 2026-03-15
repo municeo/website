@@ -1,0 +1,56 @@
+<svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Community voting illustration">
+  <!-- Background circle -->
+  <circle cx="250" cy="200" r="180" fill="#f0fdf4" opacity="0.8"/>
+
+  <!-- Central card -->
+  <rect x="100" y="100" width="300" height="200" fill="white" rx="16" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Card header -->
+  <rect x="100" y="100" width="300" height="50" fill="#3b86fc" rx="16"/>
+  <rect x="100" y="130" width="300" height="20" fill="#3b86fc"/>
+  <circle cx="130" cy="125" r="16" fill="white" opacity="0.2"/>
+  <rect x="153" y="118" width="140" height="9" fill="white" rx="4" opacity="0.9"/>
+  <rect x="153" y="130" width="100" height="7" fill="white" rx="3" opacity="0.6"/>
+
+  <!-- Vote counts -->
+  <text x="175" y="195" text-anchor="middle" fill="#16a34a" font-size="36" font-weight="800" font-family="Inter,sans-serif">+24</text>
+  <text x="325" y="195" text-anchor="middle" fill="#dc2626" font-size="36" font-weight="800" font-family="Inter,sans-serif">-3</text>
+
+  <!-- Divider -->
+  <line x1="250" y1="165" x2="250" y2="215" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Labels -->
+  <text x="175" y="215" text-anchor="middle" fill="#16a34a" font-size="12" font-family="Inter,sans-serif">Pour résolution</text>
+  <text x="325" y="215" text-anchor="middle" fill="#dc2626" font-size="12" font-family="Inter,sans-serif">Contre</text>
+
+  <!-- Wilson score bar -->
+  <rect x="120" y="235" width="260" height="12" fill="#e2e8f0" rx="6"/>
+  <rect x="120" y="235" width="195" height="12" fill="#3b86fc" rx="6"/>
+
+  <!-- Score label -->
+  <text x="120" y="263" fill="#64748b" font-size="11" font-family="Inter,sans-serif">Score Wilson</text>
+  <text x="380" y="263" text-anchor="end" fill="#3b86fc" font-size="11" font-weight="700" font-family="Inter,sans-serif">0.75</text>
+
+  <!-- People avatars (voters) -->
+  <circle cx="155" cy="320" r="26" fill="#dbeafe"/>
+  <circle cx="155" cy="312" r="10" fill="#93c5fd"/>
+  <path d="M133 340 Q155 330 177 340" fill="#bfdbfe"/>
+
+  <circle cx="215" cy="320" r="26" fill="#dcfce7"/>
+  <circle cx="215" cy="312" r="10" fill="#86efac"/>
+  <path d="M193 340 Q215 330 237 340" fill="#bbf7d0"/>
+
+  <circle cx="275" cy="320" r="26" fill="#fef3c7"/>
+  <circle cx="275" cy="312" r="10" fill="#fcd34d"/>
+  <path d="M253 340 Q275 330 297 340" fill="#fde68a"/>
+
+  <circle cx="335" cy="320" r="26" fill="#fce7f3"/>
+  <circle cx="335" cy="312" r="10" fill="#f9a8d4"/>
+  <path d="M313 340 Q335 330 357 340" fill="#fbcfe8"/>
+
+  <!-- Checkmarks above some -->
+  <circle cx="178" cy="298" r="10" fill="#16a34a"/>
+  <text x="178" y="303" text-anchor="middle" fill="white" font-size="12" font-weight="700">✓</text>
+  <circle cx="238" cy="298" r="10" fill="#16a34a"/>
+  <text x="238" y="303" text-anchor="middle" fill="white" font-size="12" font-weight="700">✓</text>
+</svg>

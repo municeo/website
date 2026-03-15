@@ -1,0 +1,91 @@
+---
+// How It Works section
+const steps = [
+  {
+    number: '01',
+    icon: `<svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>`,
+    title: 'Un citoyen repère un problème',
+    description: 'Dépôt sauvage, nid-de-poule, lampadaire cassé… Il prend une photo et crée un signalement directement depuis son téléphone. La position GPS est automatiquement intégrée.',
+    color: 'brand',
+  },
+  {
+    number: '02',
+    icon: `<svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    title: 'La communauté vote',
+    description: 'Les autres habitants voient le signalement et votent. Le score Wilson permet une priorisation automatique et objective. Un seuil de votes déclenche une demande de résolution collective.',
+    color: 'green',
+  },
+  {
+    number: '03',
+    icon: `<svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+    title: 'La municipalité résout et clôture',
+    description: 'Les agents municipaux traitent le problème sur le terrain, prennent une photo de preuve et clôturent le signalement. Toutes les parties prenantes reçoivent une notification en temps réel.',
+    color: 'orange',
+  },
+];
+
+const colorMap: Record<string, { bg: string; text: string; num: string; border: string }> = {
+  brand: { bg: 'bg-brand-100', text: 'text-brand-700', num: 'text-brand-200', border: 'border-brand-200' },
+  green: { bg: 'bg-green-100', text: 'text-green-700', num: 'text-green-200', border: 'border-green-200' },
+  orange: { bg: 'bg-orange-100', text: 'text-orange-700', num: 'text-orange-200', border: 'border-orange-200' },
+};
+---
+
+<section id="how-it-works" class="py-24 bg-slate-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section header -->
+    <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+      <span class="inline-block bg-brand-100 text-brand-700 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
+        Comment ça marche
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">
+        Simple, transparent, efficace
+      </h2>
+      <p class="text-lg text-slate-500 leading-relaxed">
+        Trois étapes claires, de la détection du problème à sa résolution vérifiée sur le terrain.
+      </p>
+    </div>
+
+    <!-- Steps -->
+    <div class="relative">
+      <!-- Connector line (desktop) -->
+      <div class="hidden lg:block absolute top-16 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-brand-200 via-green-200 to-orange-200" aria-hidden="true"></div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        {steps.map((step) => {
+          const c = colorMap[step.color];
+          return (
+            <div class="relative flex flex-col items-center text-center space-y-4 p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-200">
+              <!-- Step number badge -->
+              <div class={`relative flex items-center justify-center w-16 h-16 ${c.bg} rounded-2xl`}>
+                <span class={`${c.text}`} set:html={step.icon}/>
+                <span class={`absolute -top-2 -right-2 text-xs font-black ${c.num} bg-white border ${c.border} rounded-full w-7 h-7 flex items-center justify-center text-slate-700 shadow-sm`}>
+                  {step.number}
+                </span>
+              </div>
+              <h3 class="text-xl font-extrabold text-slate-900">{step.title}</h3>
+              <p class="text-slate-500 leading-relaxed">{step.description}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Notification callout -->
+    <div class="mt-16 bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 text-white text-center space-y-4">
+      <div class="flex justify-center">
+        <div class="bg-white/20 p-3 rounded-xl">
+          <svg viewBox="0 0 24 24" class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+        </div>
+      </div>
+      <h3 class="text-2xl font-extrabold">Notifications temps réel</h3>
+      <p class="text-brand-100 max-w-xl mx-auto leading-relaxed">
+        Grâce à <strong class="text-white">Mercure (SSE)</strong> et aux emails différés via <strong class="text-white">Messenger</strong>, chaque partie prenante est informée instantanément des évolutions de ses signalements.
+      </p>
+    </div>
+  </div>
+</section>
