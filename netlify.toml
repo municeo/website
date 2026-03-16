@@ -14,7 +14,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[redirects]]
-  from = "https://www.municeo.fr/*"
-  to = "https://municeo.fr/:splat"
+  from = "https://municeo.fr/*"
+  to = "https://www.municeo.fr/:splat"
   status = 301
   force = true
