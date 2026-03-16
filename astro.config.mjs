@@ -5,5 +5,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: 'https://municeo.fr',
+  site: 'https://www.municeo.fr',
 });
