@@ -1,13 +1,13 @@
 ---
-// Open source section
+// Community section
 ---
 
-<section id="open-source" class="py-24 bg-slate-900">
+<section id="community" class="py-24 bg-slate-900">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
+    <div class="grid lg:grid-cols-3 gap-16 items-start">
 
       <!-- Text content -->
-      <div class="space-y-8 text-center lg:text-left">
+      <div class="lg:col-span-2 space-y-8 text-center lg:text-left">
         <div class="space-y-4">
           <span class="inline-block bg-brand-900 border border-brand-700 text-brand-300 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
             Open Source
@@ -16,27 +16,27 @@
             Libre, gratuit, pour toutes les communes
           </h2>
           <p class="text-lg text-slate-300 leading-relaxed">
-            Municeo est distribué sous licence <strong class="text-white">AGPL-3.0</strong>. Toute commune peut le déployer librement. Toute modification déployée comme service doit être publiée — pour que l'écosystème reste ouvert.
+            Municeo est distribué sous licence <strong class="text-white">AGPL-3.0</strong>. Toute commune peut le déployer librement. Toute modification déployée comme service doit être publiée — pour que l\'écosystème reste ouvert et que chacun bénéficie des améliorations.
           </p>
         </div>
 
-        <!-- Values list -->
-        <ul class="space-y-4">
+        <!-- Values grid -->
+        <div class="grid md:grid-cols-2 gap-4">
           {[
-            { icon: '🌍', title: 'Librement déployable', text: 'Toute municipalité peut installer Municeo sur son infrastructure.' },
-            { icon: '🤝', title: 'Contributions bienvenues', text: 'Développeurs, designers, citoyens — chacun peut contribuer.' },
-            { icon: '💼', title: 'Non commercial', text: 'Aucune monétisation. L\'intérêt public avant tout.' },
-            { icon: '🔒', title: 'Architecture propre', text: 'Clean architecture, tests, code maintenable et évolutif.' },
-          ].map((item) => (
-            <li class="flex items-start gap-4">
-              <span class="text-2xl flex-shrink-0 mt-0.5">{item.icon}</span>
-              <div>
-                <div class="font-bold text-white">{item.title}</div>
-                <div class="text-slate-400 text-sm leading-relaxed">{item.text}</div>
-              </div>
-            </li>
+            { icon: '🌍', title: 'Librement déployable', text: 'Toute municipalité peut installer Municeo sur son infrastructure. Auto-hébergement complet, aucune dépendance à un service tiers.' },
+            { icon: '🤝', title: 'Contributions bienvenues', text: 'Développeurs, designers, citoyens engagés — chacun peut contribuer au code, à la documentation, aux traductions ou au design.' },
+            { icon: '💼', title: 'Non commercial · Civic Tech', text: 'Aucune monétisation, aucune publicité. L\'intérêt public avant tout. Projet citoyen au service de la démocratie locale.' },
+            { icon: '🔒', title: 'AGPL-3.0 · Copyleft fort', text: 'Le copyleft garantit que toutes les modifications restent libres. Si vous déployez Municeo modifié, vous devez partager le code.' },
+            { icon: '📚', title: 'Documentation complète', text: 'Guide d\'installation, API, architecture, contribution — tout est documenté pour faciliter l\'adoption et l\'extension.' },
+            { icon: '🎨', title: 'Architecture propre', text: 'Clean architecture, DDD, tests automatisés. Code maintenable et évolutif pour supporter le projet sur le long terme.' },
+          ].map((value) => (
+            <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-4 hover:bg-slate-800 transition-colors">
+              <div class="text-2xl mb-2">{value.icon}</div>
+              <div class="font-bold text-white text-sm mb-1">{value.title}</div>
+              <div class="text-slate-400 text-xs leading-relaxed">{value.text}</div>
+            </div>
           ))}
-        </ul>
+        </div>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
           <a
@@ -56,24 +56,19 @@
             rel="noopener noreferrer"
             class="inline-flex items-center justify-center gap-2 bg-slate-800 border border-slate-700 text-slate-200 font-semibold px-6 py-3 rounded-xl hover:bg-slate-700 transition-colors"
           >
-            Contribuer
+            Contribuer au projet
           </a>
         </div>
       </div>
 
       <!-- Illustration -->
-      <div class="flex justify-center lg:justify-end">
-        <div class="relative w-full max-w-lg">
-          <div class="absolute inset-0 bg-brand-500/10 rounded-3xl blur-2xl scale-105" aria-hidden="true"></div>
-          <img
-            src="/images/open-source.svg"
-            alt="Collaboration open source avec des développeurs du monde entier"
-            class="relative w-full h-auto"
-            width="500"
-            height="400"
-            loading="lazy"
-          />
-        </div>
+      <div class="hidden lg:flex justify-center items-start">
+        <img
+          src="https://cdn.jsdelivr.net/gh/AnandChowdhary/undrawcdn@master/illustrations/community.svg"
+          alt="Collaboration open source communautaire"
+          class="w-full max-w-sm h-auto"
+          loading="lazy"
+        />
       </div>
     </div>
   </div>

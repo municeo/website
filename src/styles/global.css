@@ -15,3 +15,13 @@
 
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
+
+/* Adjust for dev banner */
+header[class*="fixed"] {
+  top: 65px;
+}
+
+section[class*="pt-32"],
+section[class*="pt-40"] {
+  padding-top: 12rem;
+}

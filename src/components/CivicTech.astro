@@ -1,0 +1,64 @@
+---
+// Civic Tech Values section
+const values = [
+  {
+    icon: '🏛️',
+    title: 'Démocratie participative',
+    description: 'Redonner la voix aux citoyens dans les décisions qui affectent leur quotidien. Chaque habitant peut signaler, voter et participer à l\'amélioration de sa ville.',
+  },
+  {
+    icon: '🔓',
+    title: 'Transparence publique',
+    description: 'Toutes les actions sont tracées et visibles. Les citoyens voient comment leurs signalements sont traités. Les municipalités prouvent leur réactivité.',
+  },
+  {
+    icon: '🌱',
+    title: 'Bien commun numérique',
+    description: 'Logiciel libre développé par et pour la communauté. Aucun acteur privé ne peut s\'approprier ou monétiser les données citoyennes.',
+  },
+  {
+    icon: '⚖️',
+    title: 'Équité d\'accès',
+    description: 'Interface accessible, mobile-first, sans barrière technique. Toute commune, quelle que soit sa taille, peut déployer Municeo gratuitement.',
+  },
+  {
+    icon: '🔬',
+    title: 'Innovation ouverte',
+    description: 'Amélioration continue grâce aux contributions de la communauté. Partage des meilleures pratiques entre communes et développeurs.',
+  },
+  {
+    icon: '🛡️',
+    title: 'Respect de la vie privée',
+    description: 'Anonymat protégé, données chiffrées, aucun tracking commercial. La participation citoyenne ne doit pas se faire au détriment de la vie privée.',
+  },
+];
+---
+
+<section id="civic-tech" class="py-24 bg-slate-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section header -->
+    <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+      <span class="inline-block bg-brand-100 text-brand-700 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
+        Civic Tech
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">
+        Technologie au service de la démocratie locale
+      </h2>
+      <p class="text-lg text-slate-500 leading-relaxed">
+        Municeo s\'inscrit dans le mouvement Civic Tech : des technologies ouvertes et citoyennes pour renforcer la participation démocratique et la transparence publique.
+      </p>
+    </div>
+
+    <!-- Values grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {values.map((value) => (
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-200 space-y-4">
+          <div class="text-4xl">{value.icon}</div>
+          <h3 class="text-xl font-extrabold text-slate-900">{value.title}</h3>
+          <p class="text-slate-600 leading-relaxed text-sm">{value.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

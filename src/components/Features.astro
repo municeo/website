@@ -1,55 +1,126 @@
 ---
-// Features section
-interface Feature {
-  title: string;
-  description: string;
-  image: string;
-  imageAlt: string;
-  badge: string;
-  badgeColor: string;
-}
+// Features section with tabs
 
-const features: Feature[] = [
+const inProgressFeatures = [
   {
+    icon: '📍',
     title: 'Signalements géolocalisés',
-    description: 'Les citoyens créent des signalements avec photo et géolocalisation précise. Les catégories disponibles couvrent les déchets sauvages, la voirie dégradée, l\'éclairage défectueux et bien d\'autres incivilités du quotidien.',
-    image: '/images/feature-report.svg',
-    imageAlt: 'Interface mobile avec carte et signalement géolocalisé',
-    badge: 'Signalements',
-    badgeColor: 'blue',
+    status: '🚧 En développement',
+    description: 'Les citoyens créent des signalements avec photo et géolocalisation précise via PostGIS. Catégories multiples (déchets, voirie, éclairage, etc.).',
+    items: [
+      'Upload d\'images avec compression',
+      'Géolocalisation automatique (PostGIS 3.6+)',
+      'Catégorisation flexible',
+      'Interface mobile-first',
+    ],
   },
   {
-    title: 'Votes communautaires',
-    description: 'Les habitants votent +1 ou -1 sur chaque signalement. Le score Wilson est utilisé pour prioriser automatiquement les problèmes les plus pertinents. La communauté décide aussi de la résolution par un vote pondéré par niveau de confiance.',
-    image: '/images/feature-vote.svg',
-    imageAlt: 'Interface de vote communautaire avec scores',
-    badge: 'Communauté',
-    badgeColor: 'green',
+    icon: '✅',
+    title: 'Validation municipale',
+    status: '🚧 En développement',
+    description: 'Les agents municipaux valident sur le terrain, clôturent avec preuve photo. Workflow transparent et traçable.',
+    items: [
+      'Workflow de validation terrain',
+      'Preuve photographique obligatoire',
+      'États de signalement (ouvert, validé, résolu)',
+      'Historique complet des actions',
+    ],
   },
   {
-    title: 'Validation terrain par agents',
-    description: 'Les agents municipaux constatent les problèmes sur le terrain, valident les signalements et les clôturent avec une preuve photographique. Le processus garantit une résolution transparente et vérifiable.',
-    image: '/images/feature-validate.svg',
-    imageAlt: 'Agent municipal validant un signalement avec clipboard',
-    badge: 'Municipal',
-    badgeColor: 'orange',
+    icon: '🔔',
+    title: 'Notifications temps réel',
+    status: '🚧 En développement',
+    description: 'Mercure (SSE) pour notifications instantanées. Emails différés via Messenger. Chaque partie prenante reste informée.',
+    items: [
+      'Server-Sent Events (Mercure)',
+      'Emails asynchrones (Messenger)',
+      'Notifications de changement d\'état',
+      'Digests quotidiens personnalisables',
+    ],
   },
   {
-    title: 'Anonymat & protection des données',
-    description: 'Les emails sont chiffrés en AES. Les pseudonymes sont générés automatiquement. Aucune donnée personnelle n\'est exposée. Le système inclut un anti-abus avec rate limiting, cooldown et sanctions progressives automatiques.',
-    image: '/images/feature-privacy.svg',
-    imageAlt: 'Bouclier de protection des données et anonymat',
-    badge: 'Vie privée',
-    badgeColor: 'purple',
+    icon: '📊',
+    title: 'Tableau de bord municipal',
+    status: '🚧 En cours',
+    description: 'Visualisations avancées, cartes de chaleur, statistiques temps réel, export des données pour analyse.',
+  },
+  {
+    icon: '📱',
+    title: 'Application mobile native',
+    status: '🚧 En cours',
+    description: 'PWA avec support offline, notifications push, géolocalisation améliorée, interface optimisée mobile.',
+  },
+  {
+    icon: '🌐',
+    title: 'Multi-langues',
+    status: '🚧 En cours',
+    description: 'Internationalisation complète (i18n), support français/anglais initialement, extensible à d\'autres langues.',
   },
 ];
 
-const badgeStyles: Record<string, string> = {
-  blue: 'bg-blue-100 text-blue-700',
-  green: 'bg-green-100 text-green-700',
-  orange: 'bg-orange-100 text-orange-700',
-  purple: 'bg-purple-100 text-purple-700',
-};
+const futureFeatures = [
+  {
+    icon: '🤖',
+    title: 'IA de modération',
+    status: '🔮 Vision',
+    description: 'Détection automatique de contenu inapproprié, classification intelligente des signalements, suggestions de résolution.',
+  },
+  {
+    icon: '🗳️',
+    title: 'Budget participatif',
+    status: '🔮 Vision',
+    description: 'Extension vers le budget participatif, votes sur projets municipaux, transparence financière.',
+  },
+  {
+    icon: '📈',
+    title: 'Analytics avancés',
+    status: '🔮 Vision',
+    description: 'Analyses prédictives, détection de tendances, rapports automatisés, insights pour les décideurs.',
+  },
+];
+
+const behaviorFeatures = [
+  {
+    icon: '👥',
+    title: 'Système de votes Wilson',
+    status: '⚙️ Comportement',
+    description: 'Vote +1/−1 avec score Wilson pour priorisation objective.',
+    items: [
+      'Score Wilson (intervalle de confiance)',
+      'Priorisation automatique et juste',
+      'Vote de résolution communautaire',
+      'Protection anti-manipulation',
+    ],
+    explainer: {
+      title: '💡 Comment ça marche ?',
+      text: 'Le score de Wilson calcule la borne inférieure de l\'intervalle de confiance des votes positifs. Cela permet de privilégier les signalements ayant un fort consensus (ex : 90+ / 10−) par rapport à ceux ayant très peu de votes (ex : 1+ / 0−).',
+    },
+  },
+  {
+    icon: '🔒',
+    title: 'Anonymat & sécurité',
+    status: '⚙️ Comportement',
+    description: 'Emails chiffrés AES, pseudonymes automatiques, aucune donnée personnelle exposée. Anti-abus avec rate limiting et sanctions progressives.',
+    items: [
+      'Chiffrement AES des emails',
+      'Génération automatique de pseudonymes',
+      'Rate limiting intelligent',
+      'Système de sanctions progressives',
+    ],
+  },
+  {
+    icon: '🛡️',
+    title: 'Anti-toxicité',
+    status: '⚙️ Comportement',
+    description: 'Système de confiance communautaire, modération distribuée, sanctions progressives automatiques pour comportements abusifs.',
+    items: [
+      'Niveau de confiance par utilisateur',
+      'Cooldown après actions excessives',
+      'Bannissement automatique si nécessaire',
+      'Pas de commentaires libres (anti-trolling)',
+    ],
+  },
+];
 ---
 
 <section id="features" class="py-24 bg-white">
@@ -58,50 +129,136 @@ const badgeStyles: Record<string, string> = {
     <!-- Section header -->
     <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
       <span class="inline-block bg-brand-100 text-brand-700 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
-        Fonctionnalités
+        État du projet
       </span>
       <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">
-        Tout ce dont votre commune a besoin
+        Fonctionnalités actuelles et à venir
       </h2>
       <p class="text-lg text-slate-500 leading-relaxed">
-        Une plateforme participative complète, pensée pour l'efficacité, la transparence et la sérénité des échanges entre citoyens et élus.
+        Municeo est en développement actif. Découvrez ce qui est déjà implémenté, ce qui est prévu, et notre vision pour l\'avenir.
       </p>
     </div>
 
-    <!-- Features list (alternating layout) -->
-    <div class="space-y-24">
-      {features.map((feature, index) => (
-        <div class={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${index % 2 === 1 ? 'lg:[direction:rtl]' : ''}`}>
+    <!-- Feature tabs -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      <button class="feature-tab active px-6 py-3 rounded-full font-semibold text-sm bg-brand-600 text-white transition-colors" data-tab="in-progress">
+        🚧 En cours de développement
+      </button>
+      <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="future">
+        🔮 Futur
+      </button>
+      <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="behavior">
+        ⚙️ Comportements
+      </button>
+    </div>
 
-          <!-- Image -->
-          <div class={`flex justify-center ${index % 2 === 1 ? 'lg:[direction:ltr]' : ''}`}>
-            <div class="relative w-full max-w-md">
-              <div class="absolute inset-0 bg-gradient-to-br from-brand-100 to-brand-50 rounded-3xl" aria-hidden="true"></div>
-              <img
-                src={feature.image}
-                alt={feature.imageAlt}
-                class="relative w-full h-auto p-6"
-                width="400"
-                height="320"
-                loading="lazy"
-              />
+    <!-- In Progress Tab -->
+    <div class="feature-content active" id="in-progress">
+      <div class="grid md:grid-cols-2 gap-8">
+        {inProgressFeatures.map((feature) => (
+          <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="text-3xl">{feature.icon}</div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-slate-900">{feature.title}</h3>
+                <span class="inline-block text-xs font-semibold px-2 py-1 rounded-full bg-yellow-100 text-yellow-800 mt-2">
+                  {feature.status}
+                </span>
+              </div>
             </div>
+            <p class="text-slate-600 mb-4 text-sm leading-relaxed">{feature.description}</p>
+            {feature.items && (
+              <ul class="space-y-2">
+                {feature.items.map((item) => (
+                  <li class="flex items-start gap-2 text-sm text-slate-600">
+                    <span class="text-green-500 font-bold mt-0.5">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
+        ))}
+      </div>
+    </div>
 
-          <!-- Text -->
-          <div class={`space-y-5 ${index % 2 === 1 ? 'lg:[direction:ltr]' : ''}`}>
-            <span class={`inline-block text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full ${badgeStyles[feature.badgeColor]}`}>
-              {feature.badge}
-            </span>
-            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
-              {feature.title}
-            </h3>
-            <p class="text-lg text-slate-500 leading-relaxed">
-              {feature.description}
-            </p>
+    <!-- Future Tab -->
+    <div class="feature-content hidden" id="future">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {futureFeatures.map((feature) => (
+          <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="text-3xl">{feature.icon}</div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-slate-900">{feature.title}</h3>
+                <span class="inline-block text-xs font-semibold px-2 py-1 rounded-full bg-blue-100 text-blue-800 mt-2">
+                  {feature.status}
+                </span>
+              </div>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed">{feature.description}</p>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+    </div>
+
+    <!-- Behavior Tab -->
+    <div class="feature-content hidden" id="behavior">
+      <div class="grid md:grid-cols-2 gap-8">
+        {behaviorFeatures.map((feature) => (
+          <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="text-3xl">{feature.icon}</div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-slate-900">{feature.title}</h3>
+                <span class="inline-block text-xs font-semibold px-2 py-1 rounded-full bg-purple-100 text-purple-800 mt-2">
+                  {feature.status}
+                </span>
+              </div>
+            </div>
+            <p class="text-slate-600 mb-4 text-sm leading-relaxed">{feature.description}</p>
+            {feature.explainer && (
+              <div class="mb-4 p-3 bg-slate-50 border-l-4 border-brand-400 rounded">
+                <strong class="text-sm text-brand-700 block mb-2">{feature.explainer.title}</strong>
+                <p class="text-xs text-slate-600 leading-relaxed">{feature.explainer.text}</p>
+              </div>
+            )}
+            {feature.items && (
+              <ul class="space-y-2">
+                {feature.items.map((item) => (
+                  <li class="flex items-start gap-2 text-sm text-slate-600">
+                    <span class="text-green-500 font-bold mt-0.5">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  const tabs = document.querySelectorAll('.feature-tab');
+  const contents = document.querySelectorAll('.feature-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetTab = tab.getAttribute('data-tab');
+
+      // Remove active class
+      tabs.forEach(t => {
+        t.classList.remove('active', 'bg-brand-600', 'text-white');
+        t.classList.add('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+      });
+      contents.forEach(c => c.classList.add('hidden'));
+
+      // Add active class
+      tab.classList.add('active', 'bg-brand-600', 'text-white');
+      tab.classList.remove('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+      document.getElementById(targetTab).classList.remove('hidden');
+    });
+  });
+</script>

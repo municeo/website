@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Municeo — Plateforme participative open source permettant aux habitants de signaler des incivilités directement à leur municipalité.">
+  <title>Municeo — La voix des habitants</title>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==================== CSS RESET & BASE ==================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* Brand Colors */
+      --brand-50: #eef7ff;
+      --brand-100: #d9eeff;
+      --brand-200: #bce0ff;
+      --brand-300: #8ecbff;
+      --brand-400: #59abff;
+      --brand-500: #3b86fc;
+      --brand-600: #2462f1;
+      --brand-700: #1c4edd;
+      --brand-800: #1d3fb3;
+      --brand-900: #1e3a8c;
+      --brand-950: #172554;
+      
+      /* Semantic Colors */
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
+      
+      /* Neutral Colors */
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --slate-950: #020617;
+      
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+      
+      /* Border Radius */
+      --radius-sm: 0.5rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --radius-2xl: 2rem;
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+      --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+      
+      /* Transitions */
+      --transition-fast: 150ms ease-in-out;
+      --transition-base: 200ms ease-in-out;
+      --transition-slow: 300ms ease-in-out;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      color: var(--slate-800);
+      background: white;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* ==================== UTILITY CLASSES ==================== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .section {
+      padding: var(--space-3xl) 0;
+    }
+
+    .section-sm {
+      padding: var(--space-2xl) 0;
+    }
+
+    /* ==================== ANIMATIONS ==================== */
+
+
+    /* Scroll animation utility classes */
+    .animate-on-scroll {
+      opacity: 1;
+    }
+
+
+    /* ==================== NAVBAR ==================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--slate-200);
+      transition: all var(--transition-base);
+    }
+
+    .navbar.scrolled {
+      box-shadow: var(--shadow-md);
+    }
+
+    .navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--brand-700);
+      text-decoration: none;
+      transition: color var(--transition-base);
+    }
+
+    .navbar-logo:hover {
+      color: var(--brand-600);
+    }
+
+    .navbar-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .navbar-menu {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+      list-style: none;
+    }
+
+    .navbar-menu a {
+      text-decoration: none;
+      color: var(--slate-600);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color var(--transition-base);
+      position: relative;
+    }
+
+    .navbar-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--brand-600);
+      transition: width var(--transition-base);
+    }
+
+    .navbar-menu a:hover {
+      color: var(--brand-600);
+    }
+
+    .navbar-menu a:hover::after {
+      width: 100%;
+    }
+
+    .navbar-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--brand-600);
+      color: white;
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all var(--transition-base);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .navbar-cta:hover {
+      background: var(--brand-700);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .navbar-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-xs);
+      color: var(--slate-600);
+    }
+
+    .navbar-toggle svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .navbar-menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        align-items: stretch;
+        padding: var(--space-md);
+        gap: var(--space-sm);
+        border-bottom: 1px solid var(--slate-200);
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: all var(--transition-base);
+      }
+
+      .navbar-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .navbar-menu a {
+        padding: var(--space-xs) 0;
+      }
+
+      .navbar-toggle {
+        display: block;
+      }
+
+      .navbar-cta {
+        display: none;
+      }
+    }
+
+    /* ==================== DEV WARNING BANNER ==================== */
+    .dev-warning-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2000;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: white;
+      padding: 0.5rem 0;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+      
+    }
+
+    .dev-warning-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .dev-warning-icon {
+      font-size: 1.5rem;
+      
+    }
+
+    .dev-warning-text {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.025em;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .dev-warning-subtext {
+      font-size: 0.875rem;
+      font-weight: 500;
+      opacity: 0.95;
+    }
+
+
+    /* Adjust navbar position for dev warning */
+    body .navbar {
+      top: 65px;
+    }
+
+    /* Adjust hero padding for dev warning */
+    body .hero {
+      padding-top: 205px;
+    }
+
+    @media (max-width: 768px) {
+      .dev-warning-banner {
+        padding: 0.75rem 0;
+      }
+
+      .dev-warning-text {
+        font-size: 0.875rem;
+      }
+
+      .dev-warning-subtext {
+        font-size: 0.75rem;
+      }
+
+      .dev-warning-icon {
+        font-size: 1.25rem;
+      }
+
+      body .navbar {
+        top: 60px;
+      }
+
+      body .hero {
+        padding-top: 200px;
+      }
+    }
+
+
+    /* ==================== HERO SECTION ==================== */
+    .hero {
+      position: relative;
+      padding: 140px 0 100px;
+      background: linear-gradient(135deg, var(--brand-950) 0%, var(--brand-900) 50%, var(--brand-700) 100%);
+      
+
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 500px;
+      height: 500px;
+      background: var(--brand-500);
+      opacity: 0.1;
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+      filter: blur(80px);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 400px;
+      height: 400px;
+      background: #3b82f6;
+      opacity: 0.1;
+      border-radius: 50%;
+      transform: translate(-30%, 30%);
+      filter: blur(80px);
+    }
+
+    .hero-container {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .hero-content {
+      text-align: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-content {
+        text-align: left;
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: rgba(29, 63, 179, 0.6);
+      border: 1px solid rgba(36, 98, 241, 0.4);
+      color: var(--brand-200);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-badge .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: var(--space-md);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title .highlight {
+      color: var(--brand-300);
+      display: block;
+    }
+
+    .hero-description {
+      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      color: var(--brand-100);
+      line-height: 1.6;
+      margin-bottom: var(--space-xl);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-description {
+        margin-left: 0;
+      }
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      align-items: center;
+    }
+
+    @media (min-width: 640px) {
+      .hero-ctas {
+        flex-direction: row;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-ctas {
+        justify-content: flex-start;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--radius-xl);
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all var(--transition-base);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: white;
+      color: var(--brand-700);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-primary:hover {
+      background: var(--brand-50);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .btn-secondary {
+      background: rgba(36, 98, 241, 0.4);
+      border: 1px solid rgba(59, 171, 255, 0.5);
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(36, 98, 241, 0.6);
+    }
+
+
+    .hero-stat-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color var(--transition-base);
+    }
+
+    .hero-stat-link:hover {
+      color: var(--brand-300);
+    }
+
+    .hero-stat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      color: var(--brand-200);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-lg);
+      align-items: center;
+      justify-content: center;
+      margin-top: var(--space-xl);
+    }
+
+    @media (min-width: 1024px) {
+      .hero-stats {
+        justify-content: flex-start;
+      }
+    }
+
+    .hero-stat-separator {
+      width: 1px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .feature-card-explainer {
+      margin-top: var(--space-sm);
+      padding: var(--space-sm);
+      background: var(--slate-50);
+      border-radius: var(--radius-md);
+      border-left: 3px solid var(--brand-400);
+    }
+
+    .feature-card-explainer strong {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--brand-700);
+      margin-bottom: 0.375rem;
+    }
+
+    .feature-card-explainer p {
+      font-size: 0.85rem;
+      color: var(--slate-600);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .feature-card-explainer em {
+      color: var(--slate-500);
+      font-style: normal;
+      font-family: monospace;
+      font-size: 0.8rem;
+    }
+
+
+    .hero-image {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 550px;
+    }
+
+    .hero-image-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(59, 134, 252, 0.2);
+      border-radius: var(--radius-2xl);
+      filter: blur(60px);
+
+    }
+
+    .hero-image img {
+      position: relative;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.3));
+      
+    }
+
+    .hero-wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: auto;
+      fill: white;
+    }
+
+    /* ==================== FEATURE STATUS SECTION ==================== */
+    .feature-status {
+      background: white;
+      padding: var(--space-3xl) 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto var(--space-2xl);
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: var(--brand-100);
+      color: var(--brand-700);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-md);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 900;
+      color: var(--slate-900);
+      line-height: 1.2;
+      margin-bottom: var(--space-md);
+      letter-spacing: -0.02em;
+    }
+
+    .section-description {
+      font-size: 1.125rem;
+      color: var(--slate-500);
+      line-height: 1.7;
+    }
+
+    .feature-tabs {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-xl);
+    }
+
+    .feature-tab {
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: var(--slate-100);
+      color: var(--slate-500);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      border: none;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .feature-tab:hover {
+      background: var(--slate-200);
+      color: var(--slate-700);
+    }
+
+    .feature-tab.active {
+      background: var(--brand-600);
+      color: white;
+      box-shadow: 0 2px 8px rgba(36, 98, 241, 0.3);
+    }
+
+    .feature-content {
+      display: none;
+    }
+
+    .feature-content.active {
+      display: block;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    @media (min-width: 768px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-lg);
+      transition: all var(--transition-base);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+
+    .feature-card:hover {
+      
+      box-shadow: var(--shadow-lg);
+
+    }
+
+
+    .feature-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .feature-icon.success {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .feature-icon.warning {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .feature-icon.info {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+
+    .feature-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.25rem;
+    }
+
+    .feature-card-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.625rem;
+      border-radius: 999px;
+    }
+
+    .feature-card-status.implemented {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .feature-card-status.planned {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .feature-card-status.future {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .feature-card-status.behavior {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+
+    .feature-card-description {
+      color: var(--slate-600);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .feature-card ul {
+      list-style: none;
+      margin-top: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .feature-card li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-xs);
+      font-size: 0.9rem;
+      color: var(--slate-600);
+    }
+
+    .feature-card li::before {
+      content: '✓';
+      color: var(--success);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ==================== COMMUNITY SECTION ==================== */
+    .community {
+      background: linear-gradient(135deg, var(--slate-900) 0%, var(--slate-950) 100%);
+      padding: var(--space-2xl) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .community::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 600px;
+      background: var(--brand-600);
+      opacity: 0.05;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(100px);
+    }
+
+    .community-container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .community-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .community-grid {
+        grid-template-columns: 3fr 2fr;
+      }
+    }
+
+    .community-content {
+      color: white;
+    }
+
+    .community-title {
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 900;
+      color: white;
+      line-height: 1.2;
+      margin-bottom: var(--space-sm);
+      letter-spacing: -0.02em;
+    }
+
+    .community-description {
+      font-size: 1rem;
+      color: var(--slate-300);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+    }
+
+    .community-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    @media (max-width: 768px) {
+      .community-values {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .community-value {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-sm);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-base);
+    }
+
+    .community-value:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(59, 171, 255, 0.3);
+    }
+
+    .community-value-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .community-value-content h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.25rem;
+    }
+
+    .community-value-content p {
+      font-size: 0.825rem;
+      color: var(--slate-400);
+      line-height: 1.5;
+    }
+
+    .community-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    @media (min-width: 640px) {
+      .community-ctas {
+        flex-direction: row;
+      }
+    }
+
+    .btn-light {
+      background: white;
+      color: var(--slate-900);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-light:hover {
+      background: var(--slate-100);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--slate-700);
+      color: var(--slate-200);
+    }
+
+    .btn-outline:hover {
+      background: var(--slate-800);
+      border-color: var(--slate-600);
+    }
+
+    .community-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .community-image img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+    }
+
+    /* ==================== CIVIC TECH VALUES ==================== */
+    .civic-values {
+      background: var(--slate-50);
+      padding: var(--space-3xl) 0;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      margin-top: var(--space-2xl);
+    }
+
+    @media (min-width: 768px) {
+      .values-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .value-card {
+      background: white;
+      padding: var(--space-xl);
+      border-radius: var(--radius-xl);
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      transition: all var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+
+
+    .value-card:hover {
+
+      box-shadow: var(--shadow-xl);
+      
+    }
+
+
+    .value-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--space-md);
+      background: linear-gradient(135deg, var(--brand-100), var(--brand-50));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      transition: transform var(--transition-base);
+    }
+
+
+    .value-title {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: var(--space-sm);
+    }
+
+    .value-description {
+      color: var(--slate-600);
+      line-height: 1.7;
+    }
+
+    /* ==================== HOW IT WORKS ==================== */
+    .how-it-works {
+      background: white;
+      padding: var(--space-3xl) 0;
+    }
+
+    .steps-container {
+      position: relative;
+      margin-top: var(--space-2xl);
+    }
+
+    .steps-connector {
+      display: none;
+    }
+
+    @media (min-width: 1024px) {
+      .steps-connector {
+        display: block;
+        position: absolute;
+        top: 80px;
+        left: 16.66%;
+        right: 16.66%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--brand-200), var(--success), var(--warning));
+        border-radius: 999px;
+      }
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    @media (min-width: 1024px) {
+      .steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .step-card {
+      position: relative;
+      background: white;
+      padding: var(--space-xl);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: all var(--transition-base);
+    }
+
+    .step-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .step-icon-wrapper {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--space-md);
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-icon-wrapper.brand {
+      background: var(--brand-100);
+      color: var(--brand-700);
+    }
+
+    .step-icon-wrapper.success {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .step-icon-wrapper.warning {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 32px;
+      height: 32px;
+      background: white;
+      border: 2px solid;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 900;
+      color: var(--slate-700);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .step-number.brand {
+      
+    }
+
+    .step-number.success {
+      border-color: #86efac;
+    }
+
+    .step-number.warning {
+      border-color: #fde68a;
+    }
+
+    .step-icon-wrapper svg {
+      width: 36px;
+      height: 36px;
+      stroke-width: 2.5;
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: var(--space-sm);
+    }
+
+    .step-description {
+      color: var(--slate-600);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    /* ==================== TECH STACK ==================== */
+    .tech-stack {
+      background: white;
+      padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--slate-100);
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    @media (min-width: 640px) {
+      .tech-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .tech-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .tech-card {
+      background: var(--slate-50);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      transition: all var(--transition-base);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .tech-card:hover {
+      
+      background: var(--brand-50);
+
+    }
+
+    .tech-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.375rem 0.75rem;
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-xs);
+      display: inline-block;
+    }
+
+    .tech-description {
+      font-size: 0.875rem;
+      color: var(--slate-500);
+      line-height: 1.5;
+    }
+
+    /* Tech color variants */
+    .tech-violet { background: #ede9fe; color: #5b21b6; }
+    .tech-slate { background: #f1f5f9; color: #334155; }
+    .tech-orange { background: #ffedd5; color: #c2410c; }
+    .tech-blue { background: #dbeafe; color: #1e40af; }
+    .tech-green { background: #d1fae5; color: #065f46; }
+    .tech-yellow { background: #fef3c7; color: #92400e; }
+    .tech-pink { background: #fce7f3; color: #9f1239; }
+    .tech-red { background: #fee2e2; color: #991b1b; }
+
+    /* ==================== CTA SECTION ==================== */
+    .cta {
+      background: linear-gradient(135deg, var(--brand-600), var(--brand-800));
+      padding: var(--space-3xl) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before,
+    .cta::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      opacity: 0.15;
+      filter: blur(80px);
+    }
+
+    .cta::before {
+      top: -100px;
+      right: -100px;
+      background: var(--brand-500);
+    }
+
+    .cta::after {
+      bottom: -100px;
+      left: -100px;
+      background: #3b82f6;
+    }
+
+    .cta-container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 900;
+      color: white;
+      line-height: 1.2;
+      margin-bottom: var(--space-md);
+      letter-spacing: -0.02em;
+    }
+
+    .cta-description {
+      font-size: 1.25rem;
+      color: var(--brand-100);
+      line-height: 1.7;
+      margin-bottom: var(--space-xl);
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media (min-width: 640px) {
+      .cta-buttons {
+        flex-direction: row;
+      }
+    }
+
+    .btn-xl {
+      padding: 1.125rem 2.25rem;
+      font-size: 1.125rem;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .cta-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      color: var(--brand-200);
+      font-size: 0.9rem;
+      margin-top: var(--space-lg);
+    }
+
+    .cta-badge svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      background: var(--slate-950);
+      color: var(--slate-400);
+      padding: var(--space-3xl) 0 var(--space-xl);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      margin-bottom: var(--space-2xl);
+    }
+
+    @media (min-width: 640px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+      }
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: white;
+      text-decoration: none;
+      width: fit-content;
+      transition: color var(--transition-base);
+    }
+
+    .footer-logo:hover {
+      color: var(--brand-300);
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      max-width: 400px;
+    }
+
+    .footer-brand .license {
+      font-size: 0.75rem;
+      color: var(--slate-500);
+    }
+
+    .footer-section h3 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-md);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .footer-links a {
+      color: var(--slate-400);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color var(--transition-base);
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--slate-800);
+      padding-top: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: var(--slate-500);
+    }
+
+    @media (min-width: 640px) {
+      .footer-bottom {
+        flex-direction: row;
+      }
+    }
+
+    /* ==================== RESPONSIVE UTILITIES ==================== */
+    @media (max-width: 768px) {
+      .section {
+        padding: var(--space-2xl) 0;
+      }
+
+      .hero {
+        padding: 120px 0 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ==================== DEV WARNING BANNER ==================== -->
+  <div class="dev-warning-banner">
+    <div class="dev-warning-content">
+      <span class="dev-warning-icon">⚠️</span>
+      <div>
+        <div class="dev-warning-text">PROJET EN DÉVELOPPEMENT ACTIF</div>
+        <div class="dev-warning-subtext">Cette plateforme n'est pas encore prête pour la production • Version expérimentale</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-logo">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="#3b86fc"/>
+          <path d="M16 6 C11 6 7 10 7 15 C7 21 16 28 16 28 C16 28 25 21 25 15 C25 10 21 6 16 6 Z" fill="white"/>
+          <circle cx="16" cy="15" r="4" fill="#3b86fc"/>
+        </svg>
+        Municeo
+      </a>
+
+      <ul class="navbar-menu" id="navbar-menu">
+        <li><a href="#features">Fonctionnalités</a></li>
+        <li><a href="#community">Communauté</a></li>
+        <li><a href="#how-it-works">Comment ça marche</a></li>
+        <li><a href="#civic-tech">Civic Tech</a></li>
+      </ul>
+
+      <a href="https://github.com/municeo/municeo" target="_blank" rel="noopener noreferrer" class="navbar-cta">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+        GitHub
+      </a>
+
+      <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle menu">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="hero-badge animate-on-scroll fade-up">
+          <span class="pulse-dot"></span>
+          Open Source · AGPL-3.0
+        </div>
+
+        <h1 class="hero-title animate-on-scroll fade-up">
+          Redonnez la voix
+          <span class="highlight">à vos habitants</span>
+        </h1>
+
+        <p class="hero-description animate-on-scroll fade-up">
+          Municeo est une plateforme participative open source permettant aux citoyens de signaler des incivilités et problèmes du quotidien directement à leur municipalité — de façon simple, anonyme et sans toxicité.
+        </p>
+
+        <div class="hero-ctas animate-on-scroll fade-up">
+          <a href="https://github.com/municeo/municeo" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+            Voir sur GitHub
+          </a>
+          <a href="#features" class="btn btn-secondary">
+            Découvrir les fonctionnalités
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <a href="https://github.com/municeo/municeo" target="_blank" rel="noopener noreferrer" class="hero-stat-link">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            <span>municeo/municeo</span>
+          </a>
+          <div class="hero-stat-separator"></div>
+          <div class="hero-stat-chip">
+            <span>⭐</span>
+            <span id="github-stars">0</span>
+            <span>Stars</span>
+          </div>
+          <div class="hero-stat-separator"></div>
+          <a href="/cdn-cgi/l/email-protection#5b3834352f3a382f1b362e3532383e34753d29" class="hero-stat-link">
+            <span>📧</span>
+            <span><span class="__cf_email__" data-cfemail="ea8985849e8b899eaa879f8483898f85c48c98">[email&#160;protected]</span></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-image animate-on-scroll fade-left">
+        <div class="hero-image-wrapper">
+          <img src="https://cdn.jsdelivr.net/gh/AnandChowdhary/undrawcdn@master/illustrations/walk-in-the-city.svg" alt="Des habitants participant à la vie de leur ville" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <svg class="hero-wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0 60V30C240 0 480 60 720 30S1200 0 1440 30V60H0Z"/>
+    </svg>
+  </section>
+
+  <!-- ==================== FEATURE STATUS SECTION ==================== -->
+  <section id="features" class="feature-status">
+    <div class="container">
+      <div class="section-header animate-on-scroll fade-up">
+        <span class="section-badge">État du projet</span>
+        <h2 class="section-title">Fonctionnalités actuelles et à venir</h2>
+        <p class="section-description">
+          Municeo est en développement actif. Découvrez ce qui est déjà implémenté, ce qui est prévu, et notre vision pour l'avenir.
+        </p>
+      </div>
+
+      <div class="feature-tabs animate-on-scroll fade-up">
+        <button class="feature-tab active" data-tab="in-progress">🚧 En cours de développement</button>
+        <button class="feature-tab" data-tab="future">🔮 Futur</button>
+        <button class="feature-tab" data-tab="behavior">⚙️ Comportements</button>
+      </div>
+
+      <!-- In Progress Features -->
+      <div class="feature-content active" id="in-progress">
+        <div class="feature-grid animate-on-scroll fade-up">
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon success">📍</div>
+              <div>
+                <h3 class="feature-card-title">Signalements géolocalisés</h3>
+                <span class="feature-card-status planned">🚧 En développement</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              Les citoyens créent des signalements avec photo et géolocalisation précise via PostGIS. Catégories multiples (déchets, voirie, éclairage, etc.).
+            </p>
+            <ul>
+              <li>Upload d'images avec compression</li>
+              <li>Géolocalisation automatique (PostGIS 3.6+)</li>
+              <li>Catégorisation flexible</li>
+              <li>Interface mobile-first</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon success">✅</div>
+              <div>
+                <h3 class="feature-card-title">Validation municipale</h3>
+                <span class="feature-card-status planned">🚧 En développement</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              Les agents municipaux valident sur le terrain, clôturent avec preuve photo. Workflow transparent et traçable.
+            </p>
+            <ul>
+              <li>Workflow de validation terrain</li>
+              <li>Preuve photographique obligatoire</li>
+              <li>États de signalement (ouvert, validé, résolu)</li>
+              <li>Historique complet des actions</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon success">🔔</div>
+              <div>
+                <h3 class="feature-card-title">Notifications temps réel</h3>
+                <span class="feature-card-status planned">🚧 En développement</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              Mercure (SSE) pour notifications instantanées. Emails différés via Messenger. Chaque partie prenante reste informée.
+            </p>
+            <ul>
+              <li>Server-Sent Events (Mercure)</li>
+              <li>Emails asynchrones (Messenger)</li>
+              <li>Notifications de changement d'état</li>
+              <li>Digests quotidiens personnalisables</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon warning">📊</div>
+              <div>
+                <h3 class="feature-card-title">Tableau de bord municipal</h3>
+                <span class="feature-card-status planned">🚧 En cours</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              Visualisations avancées, cartes de chaleur, statistiques temps réel, export des données pour analyse.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon warning">📱</div>
+              <div>
+                <h3 class="feature-card-title">Application mobile native</h3>
+                <span class="feature-card-status planned">🚧 En cours</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              PWA avec support offline, notifications push, géolocalisation améliorée, interface optimisée mobile.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon warning">🌐</div>
+              <div>
+                <h3 class="feature-card-title">Multi-langues</h3>
+                <span class="feature-card-status planned">🚧 En cours</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              Internationalisation complète (i18n), support français/anglais initialement, extensible à d'autres langues.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Future Features -->
+      <div class="feature-content" id="future">
+        <div class="feature-grid animate-on-scroll fade-up">
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon info">🤖</div>
+              <div>
+                <h3 class="feature-card-title">IA de modération</h3>
+                <span class="feature-card-status future">🔮 Vision</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              Détection automatique de contenu inapproprié, classification intelligente des signalements, suggestions de résolution.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon info">🗳️</div>
+              <div>
+                <h3 class="feature-card-title">Budget participatif</h3>
+                <span class="feature-card-status future">🔮 Vision</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              Extension vers le budget participatif, votes sur projets municipaux, transparence financière.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon info">📈</div>
+              <div>
+                <h3 class="feature-card-title">Analytics avancés</h3>
+                <span class="feature-card-status future">🔮 Vision</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              Analyses prédictives, détection de tendances, rapports automatisés, insights pour les décideurs.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Behavior Features -->
+      <div class="feature-content" id="behavior">
+        <div class="feature-grid animate-on-scroll fade-up">
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon success">👥</div>
+              <div>
+                <h3 class="feature-card-title">Système de votes Wilson</h3>
+                <span class="feature-card-status behavior">⚙️ Comportement</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              Vote +1/−1 avec score Wilson pour priorisation objective.
+            </p>
+            <div class="feature-card-explainer">
+              <strong>💡 Comment ça marche ?</strong>
+              <p>Le score de Wilson calcule la borne inférieure de l'intervalle de confiance des votes positifs. Cela permet de privilégier les signalements ayant un fort consensus <em>(ex : 90+ / 10−)</em> par rapport à ceux ayant très peu de votes <em>(ex : 1+ / 0−)</em>.</p>
+            </div>
+            <ul>
+              <li>Score Wilson (intervalle de confiance)</li>
+              <li>Priorisation automatique et juste</li>
+              <li>Vote de résolution communautaire</li>
+              <li>Protection anti-manipulation</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon success">🔒</div>
+              <div>
+                <h3 class="feature-card-title">Anonymat & sécurité</h3>
+                <span class="feature-card-status behavior">⚙️ Comportement</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              Emails chiffrés AES, pseudonymes automatiques, aucune donnée personnelle exposée. Anti-abus avec rate limiting et sanctions progressives.
+            </p>
+            <ul>
+              <li>Chiffrement AES des emails</li>
+              <li>Génération automatique de pseudonymes</li>
+              <li>Rate limiting intelligent</li>
+              <li>Système de sanctions progressives</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <div class="feature-icon success">🛡️</div>
+              <div>
+                <h3 class="feature-card-title">Anti-toxicité</h3>
+                <span class="feature-card-status behavior">⚙️ Comportement</span>
+              </div>
+            </div>
+            <p class="feature-card-description">
+              Système de confiance communautaire, modération distribuée, sanctions progressives automatiques pour comportements abusifs.
+            </p>
+            <ul>
+              <li>Niveau de confiance par utilisateur</li>
+              <li>Cooldown après actions excessives</li>
+              <li>Bannissement automatique si nécessaire</li>
+              <li>Pas de commentaires libres (anti-trolling)</li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== COMMUNITY SECTION ==================== -->
+  <section id="community" class="community">
+    <div class="container community-container">
+      <div class="community-grid">
+        <div class="community-content">
+          <div class="animate-on-scroll fade-right">
+            <span class="section-badge" style="background: rgba(59, 134, 252, 0.2); color: var(--brand-300); border: 1px solid rgba(59, 171, 255, 0.3);">Open Source</span>
+            <h2 class="community-title">Libre, gratuit, pour toutes les communes</h2>
+            <p class="community-description">
+              Municeo est distribué sous licence <strong style="color: white;">AGPL-3.0</strong>. Toute commune peut le déployer librement. Toute modification déployée comme service doit être publiée — pour que l'écosystème reste ouvert et que chacun bénéficie des améliorations.
+            </p>
+          </div>
+
+          <div class="community-values animate-on-scroll fade-right">
+            <div class="community-value">
+              <div class="community-value-icon">🌍</div>
+              <div class="community-value-content">
+                <h3>Librement déployable</h3>
+                <p>Toute municipalité peut installer Municeo sur son infrastructure. Auto-hébergement complet, aucune dépendance à un service tiers.</p>
+              </div>
+            </div>
+
+            <div class="community-value">
+              <div class="community-value-icon">🤝</div>
+              <div class="community-value-content">
+                <h3>Contributions bienvenues</h3>
+                <p>Développeurs, designers, citoyens engagés — chacun peut contribuer au code, à la documentation, aux traductions ou au design.</p>
+              </div>
+            </div>
+
+            <div class="community-value">
+              <div class="community-value-icon">💼</div>
+              <div class="community-value-content">
+                <h3>Non commercial · Civic Tech</h3>
+                <p>Aucune monétisation, aucune publicité. L'intérêt public avant tout. Projet citoyen au service de la démocratie locale.</p>
+              </div>
+            </div>
+
+            <div class="community-value">
+              <div class="community-value-icon">🔒</div>
+              <div class="community-value-content">
+                <h3>AGPL-3.0 · Copyleft fort</h3>
+                <p>Le copyleft garantit que toutes les modifications restent libres. Si vous déployez Municeo modifié, vous devez partager le code.</p>
+              </div>
+            </div>
+
+            <div class="community-value">
+              <div class="community-value-icon">📚</div>
+              <div class="community-value-content">
+                <h3>Documentation complète</h3>
+                <p>Guide d'installation, API, architecture, contribution — tout est documenté pour faciliter l'adoption et l'extension.</p>
+              </div>
+            </div>
+
+            <div class="community-value">
+              <div class="community-value-icon">🎨</div>
+              <div class="community-value-content">
+                <h3>Architecture propre</h3>
+                <p>Clean architecture, DDD, tests automatisés. Code maintenable et évolutif pour supporter le projet sur le long terme.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="community-ctas animate-on-scroll fade-right">
+            <a href="https://github.com/municeo/municeo" target="_blank" rel="noopener noreferrer" class="btn btn-light">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+              Voir le code source
+            </a>
+            <a href="https://github.com/municeo/municeo/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+              Contribuer au projet
+            </a>
+          </div>
+        </div>
+
+        <div class="community-image animate-on-scroll fade-left">
+          <img src="https://cdn.jsdelivr.net/gh/AnandChowdhary/undrawcdn@master/illustrations/community.svg" alt="Collaboration open source communautaire" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CIVIC TECH VALUES ==================== -->
+  <section id="civic-tech" class="civic-values">
+    <div class="container">
+      <div class="section-header animate-on-scroll fade-up">
+        <span class="section-badge">Civic Tech</span>
+        <h2 class="section-title">Technologie au service de la démocratie locale</h2>
+        <p class="section-description">
+          Municeo s'inscrit dans le mouvement Civic Tech : des technologies ouvertes et citoyennes pour renforcer la participation démocratique et la transparence publique.
+        </p>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card animate-on-scroll fade-up">
+          <div class="value-icon">🏛️</div>
+          <h3 class="value-title">Démocratie participative</h3>
+          <p class="value-description">
+            Redonner la voix aux citoyens dans les décisions qui affectent leur quotidien. Chaque habitant peut signaler, voter et participer à l'amélioration de sa ville.
+          </p>
+        </div>
+
+        <div class="value-card animate-on-scroll fade-up">
+          <div class="value-icon">🔓</div>
+          <h3 class="value-title">Transparence publique</h3>
+          <p class="value-description">
+            Toutes les actions sont tracées et visibles. Les citoyens voient comment leurs signalements sont traités. Les municipalités prouvent leur réactivité.
+          </p>
+        </div>
+
+        <div class="value-card animate-on-scroll fade-up">
+          <div class="value-icon">🌱</div>
+          <h3 class="value-title">Bien commun numérique</h3>
+          <p class="value-description">
+            Logiciel libre développé par et pour la communauté. Aucun acteur privé ne peut s'approprier ou monétiser les données citoyennes.
+          </p>
+        </div>
+
+        <div class="value-card animate-on-scroll fade-up">
+          <div class="value-icon">⚖️</div>
+          <h3 class="value-title">Équité d'accès</h3>
+          <p class="value-description">
+            Interface accessible, mobile-first, sans barrière technique. Toute commune, quelle que soit sa taille, peut déployer Municeo gratuitement.
+          </p>
+        </div>
+
+        <div class="value-card animate-on-scroll fade-up">
+          <div class="value-icon">🔬</div>
+          <h3 class="value-title">Innovation ouverte</h3>
+          <p class="value-description">
+            Amélioration continue grâce aux contributions de la communauté. Partage des meilleures pratiques entre communes et développeurs.
+          </p>
+        </div>
+
+        <div class="value-card animate-on-scroll fade-up">
+          <div class="value-icon">🛡️</div>
+          <h3 class="value-title">Respect de la vie privée</h3>
+          <p class="value-description">
+            Anonymat protégé, données chiffrées, aucun tracking commercial. La participation citoyenne ne doit pas se faire au détriment de la vie privée.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== HOW IT WORKS ==================== -->
+  <section id="how-it-works" class="how-it-works">
+    <div class="container">
+      <div class="section-header animate-on-scroll fade-up">
+        <span class="section-badge">Comment ça marche</span>
+        <h2 class="section-title">Simple, transparent, efficace</h2>
+        <p class="section-description">
+          Trois étapes claires, de la détection du problème à sa résolution vérifiée sur le terrain.
+        </p>
+      </div>
+
+      <div class="steps-container">
+        <div class="steps-connector"></div>
+        
+        <div class="steps-grid">
+          <div class="step-card animate-on-scroll fade-up">
+            <div class="step-icon-wrapper brand">
+              <span class="step-number brand">01</span>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+            </div>
+            <h3 class="step-title">Un citoyen repère un problème</h3>
+            <p class="step-description">
+              Dépôt sauvage, nid-de-poule, lampadaire cassé… Il prend une photo et crée un signalement directement depuis son téléphone. La position GPS est automatiquement intégrée.
+            </p>
+          </div>
+
+          <div class="step-card animate-on-scroll fade-up">
+            <div class="step-icon-wrapper success">
+              <span class="step-number success">02</span>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3 class="step-title">La communauté vote</h3>
+            <p class="step-description">
+              Les autres habitants voient le signalement et votent. Le score Wilson permet une priorisation automatique et objective. Un seuil de votes déclenche une demande de résolution collective.
+            </p>
+          </div>
+
+          <div class="step-card animate-on-scroll fade-up">
+            <div class="step-icon-wrapper warning">
+              <span class="step-number warning">03</span>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <h3 class="step-title">La municipalité résout et clôture</h3>
+            <p class="step-description">
+              Les agents municipaux traitent le problème sur le terrain, prennent une photo de preuve et clôturent le signalement. Toutes les parties prenantes reçoivent une notification en temps réel.
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- ==================== TECH STACK ==================== -->
+  <section class="tech-stack">
+    <div class="container">
+      <div class="section-header animate-on-scroll fade-up">
+        <span class="section-badge" style="background: var(--slate-100); color: var(--slate-600);">Stack technique</span>
+        <h2 class="section-title" style="font-size: 1.875rem;">Technologies modernes et éprouvées</h2>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card animate-on-scroll fade-up">
+          <span class="tech-name tech-violet">PHP 8.5+</span>
+          <p class="tech-description">Langage robuste, typé et performant</p>
+        </div>
+        <div class="tech-card animate-on-scroll fade-up">
+          <span class="tech-name tech-slate">Symfony 8</span>
+          <p class="tech-description">Framework PHP de référence</p>
+        </div>
+        <div class="tech-card animate-on-scroll fade-up">
+          <span class="tech-name tech-orange">FrankenPHP</span>
+          <p class="tech-description">Serveur PHP moderne en mode worker</p>
+        </div>
+        <div class="tech-card animate-on-scroll fade-up">
+          <span class="tech-name tech-blue">PostgreSQL 18+</span>
+          <p class="tech-description">Base de données relationnelle avancée</p>
+        </div>
+        <div class="tech-card animate-on-scroll fade-up">
+          <span class="tech-name tech-green">PostGIS 3.6+</span>
+          <p class="tech-description">Extension spatiale pour géolocalisation</p>
+        </div>
+        <div class="tech-card animate-on-scroll fade-up">
+          <span class="tech-name tech-yellow">Mercure (SSE)</span>
+          <p class="tech-description">Notifications temps réel</p>
+        </div>
+        <div class="tech-card animate-on-scroll fade-up">
+          <span class="tech-name tech-pink">Twig + Symfony UX</span>
+          <p class="tech-description">Frontend avec Stimulus & Turbo</p>
+        </div>
+        <div class="tech-card animate-on-scroll fade-up">
+          <span class="tech-name tech-red">PHPUnit</span>
+          <p class="tech-description">Tests unitaires et fonctionnels</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA SECTION ==================== -->
+  <section class="cta">
+    <div class="container cta-container">
+      <div class="animate-on-scroll fade-up">
+        <h2 class="cta-title">Prêt à redonner la parole à vos habitants ?</h2>
+        <p class="cta-description">
+          Municeo est open source, gratuit et conçu pour toute commune. Déployez-le, contribuez, ou simplement suivez le projet sur GitHub.
+        </p>
+      </div>
+
+      <div class="cta-buttons animate-on-scroll fade-up">
+        <a href="https://github.com/municeo/municeo" target="_blank" rel="noopener noreferrer" class="btn btn-light btn-xl">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          Voir le projet sur GitHub
+        </a>
+      </div>
+
+      <div class="cta-badge animate-on-scroll fade-up">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+        Licence AGPL-3.0 · Contributions bienvenues
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="footer-logo">
+            <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
+              <rect width="32" height="32" rx="8" fill="#3b86fc"/>
+              <path d="M16 6 C11 6 7 10 7 15 C7 21 16 28 16 28 C16 28 25 21 25 15 C25 10 21 6 16 6 Z" fill="white"/>
+              <circle cx="16" cy="15" r="4" fill="#3b86fc"/>
+            </svg>
+            Municeo
+          </a>
+          <p>
+            Plateforme participative open source permettant aux habitants de signaler des incivilités directement à leur municipalité.
+          </p>
+          <p class="license">
+            Licence AGPL-3.0 · Non commercial
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h3>Projet</h3>
+          <ul class="footer-links">
+            <li><a href="https://github.com/municeo/municeo" target="_blank" rel="noopener noreferrer">Code source</a></li>
+            <li><a href="https://github.com/municeo/municeo/blob/main/docs/specifications.md" target="_blank" rel="noopener noreferrer">Spécifications</a></li>
+            <li><a href="https://github.com/municeo/municeo/blob/main/PLAN.md" target="_blank" rel="noopener noreferrer">Plan de développement</a></li>
+            <li><a href="https://github.com/municeo/municeo/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Contribuer</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Navigation</h3>
+          <ul class="footer-links">
+            <li><a href="#features">Fonctionnalités</a></li>
+            <li><a href="#community">Communauté</a></li>
+            <li><a href="#how-it-works">Comment ça marche</a></li>
+            <li><a href="#civic-tech">Civic Tech</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Municeo · Tous droits réservés</p>
+        <p>Fait avec ❤️ pour les communes</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    
+    // Fetch GitHub stars count
+    fetch('https://api.github.com/repos/municeo/municeo')
+      .then(r => r.json())
+      .then(data => {
+        const el = document.getElementById('github-stars');
+        if (el && data.stargazers_count !== undefined) {
+          el.textContent = data.stargazers_count;
+        }
+      })
+      .catch(() => {});
+
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    const navbarToggle = document.getElementById('navbar-toggle');
+    const navbarMenu = document.getElementById('navbar-menu');
+    
+    navbarToggle.addEventListener('click', () => {
+      navbarMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    navbarMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navbarMenu.classList.remove('active');
+      });
+    });
+
+    // Feature tabs
+    const featureTabs = document.querySelectorAll('.feature-tab');
+    const featureContents = document.querySelectorAll('.feature-content');
+
+    featureTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTab = tab.getAttribute('data-tab');
+        
+        // Remove active class from all tabs and contents
+        featureTabs.forEach(t => t.classList.remove('active'));
+        featureContents.forEach(c => c.classList.remove('active'));
+        
+        // Add active class to clicked tab and corresponding content
+        tab.classList.add('active');
+        document.getElementById(targetTab).classList.add('active');
+      });
+    });
+
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href !== '') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const offsetTop = target.offsetTop - 70; // Account for fixed navbar
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
