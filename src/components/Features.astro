@@ -58,7 +58,7 @@ const inProgressFeatures = [
   },
 ];
 
-const futureFeatures = [
+const visionFeatures = [
   {
     icon: '🤖',
     title: 'IA de modération',
@@ -76,6 +76,18 @@ const futureFeatures = [
     title: 'Analytics avancés',
     status: '🔮 Vision',
     description: 'Analyses prédictives, détection de tendances, rapports automatisés, insights pour les décideurs.',
+  },
+  {
+    icon: '🌐',
+    title: 'Fédération Fediverse',
+    status: '🔮 Vision',
+    description: 'Les instances Municeo se connectent entre elles pour partager des statistiques agrégées par zone géographique et permettre la portabilité des comptes.',
+    items: [
+      'Statistiques partagées par agglomération, département, région et au niveau national',
+      'Portabilité de compte entre instances lors d\'un déménagement',
+      'Score Wilson conservé lors d\'une migration vers une autre ville',
+      'Fédération ouverte et décentralisée (protocole ActivityPub)',
+    ],
   },
 ];
 
@@ -146,7 +158,7 @@ const behaviorFeatures = [
         🚧 En cours de développement
       </button>
       <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="future" role="tab" aria-selected="false" aria-controls="future" id="tab-future">
-        🔮 Futur
+        🔮 Vision
       </button>
       <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="behavior" role="tab" aria-selected="false" aria-controls="behavior" id="tab-behavior">
         ⚙️ Comportements
@@ -183,10 +195,10 @@ const behaviorFeatures = [
       </div>
     </div>
 
-    <!-- Future Tab -->
+    <!-- Vision Tab -->
     <div class="feature-content hidden" id="future" role="tabpanel" aria-labelledby="tab-future">
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {futureFeatures.map((feature) => (
+        {visionFeatures.map((feature) => (
           <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
             <div class="flex items-start gap-4 mb-4">
               <div class="text-3xl">{feature.icon}</div>
@@ -197,7 +209,17 @@ const behaviorFeatures = [
                 </span>
               </div>
             </div>
-            <p class="text-slate-600 text-sm leading-relaxed">{feature.description}</p>
+            <p class="text-slate-600 text-sm leading-relaxed" class:list={[feature.items ? 'mb-4' : '']}>{feature.description}</p>
+            {feature.items && (
+              <ul class="space-y-2 mt-4">
+                {feature.items.map((item) => (
+                  <li class="flex items-start gap-2 text-sm text-slate-600">
+                    <span class="text-blue-500 font-bold mt-0.5">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         ))}
       </div>
