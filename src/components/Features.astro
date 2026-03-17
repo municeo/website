@@ -89,6 +89,24 @@ const visionFeatures = [
       'Fédération ouverte et décentralisée (protocole ActivityPub)',
     ],
   },
+  {
+    icon: '🔐',
+    title: 'Intégrité cryptographique',
+    status: '🔮 Vision',
+    description: 'Chaque action clé de la plateforme — signalement, vote citoyen, validation municipale — sera signée, horodatée et chaînée de façon irréversible. Aucune donnée ne peut être altérée sans détection immédiate.',
+    items: [
+      'Création de signalement (photo, géolocalisation, catégorie)',
+      'Votes citoyens (+1 / -1) et scores de priorisation',
+      'Votes de résolution communautaire',
+      'Validation et clôture par les agents municipaux',
+      'Sanctions anti-abus automatiques',
+      'Modifications du score de confiance',
+    ],
+    explainer: {
+      title: '💡 Comment ça marche ?',
+      text: 'Chaque action génère une empreinte cryptographique liée à la précédente, formant une chaîne d\'intégrité (principe similaire à une blockchain, sans la complexité ni le coût). Si un seul maillon est falsifié, toute la chaîne le révèle. Un endpoint de vérification public permettra à n\'importe qui d\'auditer le cycle de vie d\'un signalement.',
+    },
+  },
 ];
 
 const behaviorFeatures = [
@@ -209,9 +227,15 @@ const behaviorFeatures = [
                 </span>
               </div>
             </div>
-            <p class="text-slate-600 text-sm leading-relaxed" class:list={[feature.items ? 'mb-4' : '']}>{feature.description}</p>
+            <p class="text-slate-600 mb-4 text-sm leading-relaxed">{feature.description}</p>
+            {feature.explainer && (
+              <div class="mb-4 p-3 bg-slate-50 border-l-4 border-brand-400 rounded">
+                <strong class="text-sm text-brand-700 block mb-2">{feature.explainer.title}</strong>
+                <p class="text-xs text-slate-600 leading-relaxed">{feature.explainer.text}</p>
+              </div>
+            )}
             {feature.items && (
-              <ul class="space-y-2 mt-4">
+              <ul class="space-y-2">
                 {feature.items.map((item) => (
                   <li class="flex items-start gap-2 text-sm text-slate-600">
                     <span class="text-blue-500 font-bold mt-0.5">✓</span>
