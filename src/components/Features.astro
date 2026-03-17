@@ -8,7 +8,7 @@ const inProgressFeatures = [
     status: '🚧 En développement',
     description: 'Les citoyens créent des signalements avec photo et géolocalisation précise via PostGIS. Catégories multiples (déchets, voirie, éclairage, etc.).',
     items: [
-      'Upload d\'images avec compression',
+      "Upload d'images avec compression",
       'Géolocalisation automatique (PostGIS 3.6+)',
       'Catégorisation flexible',
       'Interface mobile-first',
@@ -34,7 +34,7 @@ const inProgressFeatures = [
     items: [
       'Server-Sent Events (Mercure)',
       'Emails asynchrones (Messenger)',
-      'Notifications de changement d\'état',
+      "Notifications de changement d'état",
       'Digests quotidiens personnalisables',
     ],
   },
@@ -54,7 +54,7 @@ const inProgressFeatures = [
     icon: '🌐',
     title: 'Multi-langues',
     status: '🚧 En cours',
-    description: 'Internationalisation complète (i18n), support français/anglais initialement, extensible à d\'autres langues.',
+    description: "Internationalisation complète (i18n), support français/anglais initialement, extensible à d'autres langues.",
   },
 ];
 
@@ -84,8 +84,8 @@ const visionFeatures = [
     description: 'Les instances Municeo se connectent entre elles pour partager des statistiques agrégées par zone géographique et permettre la portabilité des comptes.',
     items: [
       'Statistiques partagées par agglomération, département, région et au niveau national',
-      'Portabilité de compte entre instances lors d\'un déménagement',
-      'Score Wilson conservé lors d\'une migration vers une autre ville',
+      "Portabilité de compte entre instances lors d'un déménagement",
+      "Score Wilson conservé lors d'une migration vers une autre ville",
       'Fédération ouverte et décentralisée (protocole ActivityPub)',
     ],
   },
@@ -104,7 +104,7 @@ const visionFeatures = [
     ],
     explainer: {
       title: '💡 Comment ça marche ?',
-      text: 'Chaque action génère une empreinte cryptographique liée à la précédente, formant une chaîne d\'intégrité (principe similaire à une blockchain, sans la complexité ni le coût). Si un seul maillon est falsifié, toute la chaîne le révèle. Un endpoint de vérification public permettra à n\'importe qui d\'auditer le cycle de vie d\'un signalement.',
+      text: "Chaque action génère une empreinte cryptographique liée à la précédente, formant une chaîne d'intégrité (principe similaire à une blockchain, sans la complexité ni le coût). Si un seul maillon est falsifié, toute la chaîne le révèle. Un endpoint de vérification public permettra à n'importe qui d'auditer le cycle de vie d'un signalement.",
     },
   },
 ];
@@ -123,7 +123,7 @@ const behaviorFeatures = [
     ],
     explainer: {
       title: '💡 Comment ça marche ?',
-      text: 'Le score de Wilson calcule la borne inférieure de l\'intervalle de confiance des votes positifs. Cela permet de privilégier les signalements ayant un fort consensus (ex : 90+ / 10−) par rapport à ceux ayant très peu de votes (ex : 1+ / 0−).',
+      text: "Le score de Wilson calcule la borne inférieure de l'intervalle de confiance des votes positifs. Cela permet de privilégier les signalements ayant un fort consensus (ex : 90+ / 10−) par rapport à ceux ayant très peu de votes (ex : 1+ / 0−).",
     },
   },
   {
