@@ -141,20 +141,20 @@ const behaviorFeatures = [
     </div>
 
     <!-- Feature tabs -->
-    <div class="flex flex-wrap justify-center gap-3 mb-12">
-      <button class="feature-tab active px-6 py-3 rounded-full font-semibold text-sm bg-brand-600 text-white transition-colors" data-tab="in-progress">
+    <div class="flex flex-wrap justify-center gap-3 mb-12" role="tablist" aria-label="Catégories de fonctionnalités">
+      <button class="feature-tab active px-6 py-3 rounded-full font-semibold text-sm bg-brand-600 text-white transition-colors" data-tab="in-progress" role="tab" aria-selected="true" aria-controls="in-progress" id="tab-in-progress">
         🚧 En cours de développement
       </button>
-      <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="future">
+      <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="future" role="tab" aria-selected="false" aria-controls="future" id="tab-future">
         🔮 Futur
       </button>
-      <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="behavior">
+      <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="behavior" role="tab" aria-selected="false" aria-controls="behavior" id="tab-behavior">
         ⚙️ Comportements
       </button>
     </div>
 
     <!-- In Progress Tab -->
-    <div class="feature-content active" id="in-progress">
+    <div class="feature-content active" id="in-progress" role="tabpanel" aria-labelledby="tab-in-progress">
       <div class="grid md:grid-cols-2 gap-8">
         {inProgressFeatures.map((feature) => (
           <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
@@ -184,7 +184,7 @@ const behaviorFeatures = [
     </div>
 
     <!-- Future Tab -->
-    <div class="feature-content hidden" id="future">
+    <div class="feature-content hidden" id="future" role="tabpanel" aria-labelledby="tab-future">
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {futureFeatures.map((feature) => (
           <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
@@ -204,7 +204,7 @@ const behaviorFeatures = [
     </div>
 
     <!-- Behavior Tab -->
-    <div class="feature-content hidden" id="behavior">
+    <div class="feature-content hidden" id="behavior" role="tabpanel" aria-labelledby="tab-behavior">
       <div class="grid md:grid-cols-2 gap-8">
         {behaviorFeatures.map((feature) => (
           <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
@@ -253,12 +253,14 @@ const behaviorFeatures = [
       tabs.forEach(t => {
         t.classList.remove('active', 'bg-brand-600', 'text-white');
         t.classList.add('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+        t.setAttribute('aria-selected', 'false');
       });
       contents.forEach(c => c.classList.add('hidden'));
 
       // Add active class
       tab.classList.add('active', 'bg-brand-600', 'text-white');
       tab.classList.remove('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+      tab.setAttribute('aria-selected', 'true');
       document.getElementById(targetTab).classList.remove('hidden');
     });
   });
