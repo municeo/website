@@ -8,7 +8,7 @@ const inProgressFeatures = [
     status: '🚧 En développement',
     description: 'Les citoyens créent des signalements avec photo et géolocalisation précise via PostGIS. Catégories multiples (déchets, voirie, éclairage, etc.).',
     items: [
-      'Upload d\'images avec compression',
+      "Upload d'images avec compression",
       'Géolocalisation automatique (PostGIS 3.6+)',
       'Catégorisation flexible',
       'Interface mobile-first',
@@ -34,7 +34,7 @@ const inProgressFeatures = [
     items: [
       'Server-Sent Events (Mercure)',
       'Emails asynchrones (Messenger)',
-      'Notifications de changement d\'état',
+      "Notifications de changement d'état",
       'Digests quotidiens personnalisables',
     ],
   },
@@ -54,11 +54,11 @@ const inProgressFeatures = [
     icon: '🌐',
     title: 'Multi-langues',
     status: '🚧 En cours',
-    description: 'Internationalisation complète (i18n), support français/anglais initialement, extensible à d\'autres langues.',
+    description: "Internationalisation complète (i18n), support français/anglais initialement, extensible à d'autres langues.",
   },
 ];
 
-const futureFeatures = [
+const visionFeatures = [
   {
     icon: '🤖',
     title: 'IA de modération',
@@ -77,6 +77,36 @@ const futureFeatures = [
     status: '🔮 Vision',
     description: 'Analyses prédictives, détection de tendances, rapports automatisés, insights pour les décideurs.',
   },
+  {
+    icon: '🌐',
+    title: 'Fédération Fediverse',
+    status: '🔮 Vision',
+    description: 'Les instances Municeo se connectent entre elles pour partager des statistiques agrégées par zone géographique et permettre la portabilité des comptes.',
+    items: [
+      'Statistiques partagées par agglomération, département, région et au niveau national',
+      "Portabilité de compte entre instances lors d'un déménagement",
+      "Score Wilson conservé lors d'une migration vers une autre ville",
+      'Fédération ouverte et décentralisée (protocole ActivityPub)',
+    ],
+  },
+  {
+    icon: '🔐',
+    title: 'Intégrité cryptographique',
+    status: '🔮 Vision',
+    description: 'Chaque action clé de la plateforme — signalement, vote citoyen, validation municipale — sera signée, horodatée et chaînée de façon irréversible. Aucune donnée ne peut être altérée sans détection immédiate.',
+    items: [
+      'Création de signalement (photo, géolocalisation, catégorie)',
+      'Votes citoyens (+1 / -1) et scores de priorisation',
+      'Votes de résolution communautaire',
+      'Validation et clôture par les agents municipaux',
+      'Sanctions anti-abus automatiques',
+      'Modifications du score de confiance',
+    ],
+    explainer: {
+      title: '💡 Comment ça marche ?',
+      text: "Chaque action génère une empreinte cryptographique liée à la précédente, formant une chaîne d'intégrité (principe similaire à une blockchain, sans la complexité ni le coût). Si un seul maillon est falsifié, toute la chaîne le révèle. Un endpoint de vérification public permettra à n'importe qui d'auditer le cycle de vie d'un signalement.",
+    },
+  },
 ];
 
 const behaviorFeatures = [
@@ -93,7 +123,7 @@ const behaviorFeatures = [
     ],
     explainer: {
       title: '💡 Comment ça marche ?',
-      text: 'Le score de Wilson calcule la borne inférieure de l\'intervalle de confiance des votes positifs. Cela permet de privilégier les signalements ayant un fort consensus (ex : 90+ / 10−) par rapport à ceux ayant très peu de votes (ex : 1+ / 0−).',
+      text: "Le score de Wilson calcule la borne inférieure de l'intervalle de confiance des votes positifs. Cela permet de privilégier les signalements ayant un fort consensus (ex : 90+ / 10−) par rapport à ceux ayant très peu de votes (ex : 1+ / 0−).",
     },
   },
   {
@@ -141,20 +171,20 @@ const behaviorFeatures = [
     </div>
 
     <!-- Feature tabs -->
-    <div class="flex flex-wrap justify-center gap-3 mb-12">
-      <button class="feature-tab active px-6 py-3 rounded-full font-semibold text-sm bg-brand-600 text-white transition-colors" data-tab="in-progress">
+    <div class="flex flex-wrap justify-center gap-3 mb-12" role="tablist" aria-label="Catégories de fonctionnalités">
+      <button class="feature-tab active px-6 py-3 rounded-full font-semibold text-sm bg-brand-600 text-white transition-colors" data-tab="in-progress" role="tab" aria-selected="true" aria-controls="in-progress" id="tab-in-progress">
         🚧 En cours de développement
       </button>
-      <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="future">
-        🔮 Futur
+      <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="future" role="tab" aria-selected="false" aria-controls="future" id="tab-future">
+        🔮 Vision
       </button>
-      <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="behavior">
+      <button class="feature-tab px-6 py-3 rounded-full font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-tab="behavior" role="tab" aria-selected="false" aria-controls="behavior" id="tab-behavior">
         ⚙️ Comportements
       </button>
     </div>
 
     <!-- In Progress Tab -->
-    <div class="feature-content active" id="in-progress">
+    <div class="feature-content active" id="in-progress" role="tabpanel" aria-labelledby="tab-in-progress">
       <div class="grid md:grid-cols-2 gap-8">
         {inProgressFeatures.map((feature) => (
           <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
@@ -183,10 +213,10 @@ const behaviorFeatures = [
       </div>
     </div>
 
-    <!-- Future Tab -->
-    <div class="feature-content hidden" id="future">
+    <!-- Vision Tab -->
+    <div class="feature-content hidden" id="future" role="tabpanel" aria-labelledby="tab-future">
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {futureFeatures.map((feature) => (
+        {visionFeatures.map((feature) => (
           <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
             <div class="flex items-start gap-4 mb-4">
               <div class="text-3xl">{feature.icon}</div>
@@ -197,14 +227,30 @@ const behaviorFeatures = [
                 </span>
               </div>
             </div>
-            <p class="text-slate-600 text-sm leading-relaxed">{feature.description}</p>
+            <p class="text-slate-600 mb-4 text-sm leading-relaxed">{feature.description}</p>
+            {feature.explainer && (
+              <div class="mb-4 p-3 bg-slate-50 border-l-4 border-brand-400 rounded">
+                <strong class="text-sm text-brand-700 block mb-2">{feature.explainer.title}</strong>
+                <p class="text-xs text-slate-600 leading-relaxed">{feature.explainer.text}</p>
+              </div>
+            )}
+            {feature.items && (
+              <ul class="space-y-2">
+                {feature.items.map((item) => (
+                  <li class="flex items-start gap-2 text-sm text-slate-600">
+                    <span class="text-blue-500 font-bold mt-0.5">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         ))}
       </div>
     </div>
 
     <!-- Behavior Tab -->
-    <div class="feature-content hidden" id="behavior">
+    <div class="feature-content hidden" id="behavior" role="tabpanel" aria-labelledby="tab-behavior">
       <div class="grid md:grid-cols-2 gap-8">
         {behaviorFeatures.map((feature) => (
           <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
@@ -253,12 +299,14 @@ const behaviorFeatures = [
       tabs.forEach(t => {
         t.classList.remove('active', 'bg-brand-600', 'text-white');
         t.classList.add('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+        t.setAttribute('aria-selected', 'false');
       });
       contents.forEach(c => c.classList.add('hidden'));
 
       // Add active class
       tab.classList.add('active', 'bg-brand-600', 'text-white');
       tab.classList.remove('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+      tab.setAttribute('aria-selected', 'true');
       document.getElementById(targetTab).classList.remove('hidden');
     });
   });
